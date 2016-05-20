@@ -1,6 +1,9 @@
 <!Doctype HTML>
 <html>
-	<head>
+	<head lang="us-en">
+
+    	<meta charset="utf-8"> 
+
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -9,6 +12,7 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 
 		<script>
 			var questions = [
@@ -145,23 +149,93 @@
 
 	</head>
 	<body>
-		<center>
-			<div class="well" id="category1">
-				<script>
-					document.getElementById("category1").innerHTML = getCategoryTitle(0);
-				</script>
-			</div>
-			<div class="btn-group btn-group-lg" align="center" role="group" aria-label="...">
-	  			<button type="button" class="btn btn-default">Left</button>
-			 	<button type="button" class="btn btn-default">Middle</button>
-				<button type="button" class="btn btn-default">Right</button>
-			</div>
-			<div class="btn-group btn-group-lg" align="center" role="group" aria-label="...">
-	  			<button type="button" class="btn btn-default">Left</button>
-			 	<button type="button" class="btn btn-default">Middle</button>
-				<button type="button" class="btn btn-default">Right</button>
-			</div>
-		</center>
+		<div class="container">
+			<center>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="well" id="category1">
+							<script>
+								document.getElementById("category1").innerHTML = getCategoryTitle(0);
+							</script>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="well" id="category2">
+							<script>
+								document.getElementById("category2").innerHTML = getCategoryTitle(1);
+							</script>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">100</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">200</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">100</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">200</a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">300</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">400</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">300</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">400</a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">500</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">600</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">500</a>
+						</div>
+					</div>
+					<div class="col-md-3">
+			  			<div class="well">
+							<a href="#">600</a>
+						</div>
+					</div>
+				</div>
+			</center>
+		</div>
 
 		<!--<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
 			<a class="btn btn-primary btn-lg" href="#" role="button">Play!</a>
