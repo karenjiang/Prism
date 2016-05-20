@@ -13,8 +13,10 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-
 		<script>
+			var currentCategory;
+			var currentValue;
+
 			var questions = [
 				//Category 1
 				[
@@ -100,8 +102,6 @@
 				//More categories...
 			];
 
-			var a = "HAI";
-
 			function getCategoryTitle(categoryNum) {
 				return questions[categoryNum][0];
 			}
@@ -123,18 +123,29 @@
 			}
 
 			function setHtmlDivText(text, divId) {
-				document.getElementById(divID).innerHTML = text;
+				document.getElementById(divId).innerHTML = text;
 			}
 
-			function test() {
-				return "Hai"
+			function showQuestionPage(pageToBeShown, pageToBeHidden, setCategory, setValue) {
+				document.getElementById(pageToBeShown).style.display='block';
+				document.getElementById(pageToBeHidden).style.display='none';
+				category = setCategory;
+				value = setValue;
+				setHtmlDivText(getQuestion(category, value), "question");
+				setHtmlDivText(getAnswerChoice(category, value, 0), "answer1");
+				setHtmlDivText(getAnswerChoice(category, value, 1), "answer2");
+				setHtmlDivText(getAnswerChoice(category, value, 2), "answer3");
+				setHtmlDivText(getAnswerChoice(category, value, 3), "answer4");
+				//return false;
 			}
+
 		</script>
 
-		<!-- MULTIPLE PAGES <script>
-			function show(shown, hidden) {
-				document.getElementById(shown).style.display='block';
-				document.getElementById(hidden).style.display='none';
+		<!-- MULTIPLE PAGES
+		<script>
+			function show(pageToBeShown, pageToBeHidden) {
+				document.getElementById(pageToBeShown).style.display='block';
+				document.getElementById(pageToBeHidden).style.display='none';
 				return false;
 			}
 		</script>
@@ -150,8 +161,8 @@
 
 	</head>
 	<body>
-		<div class="container">
-			<center>
+		<center>
+			<div class="container" id="chooseQuestionPage">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="well" id="category1">
@@ -172,7 +183,7 @@
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="well">
-							<a href="#">100</a>
+							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -235,8 +246,15 @@
 						</div>
 					</div>
 				</div>
-			</center>
-		</div>
+			</div>
+			<div class="container" id="questionPage" display="none"> <!--WONT BE SHOWN AT FIRST, USE THE MULTIPLE PAGES THING--> 
+				<div class="well" id="question"></div>
+				<div class="well" id="answer1"></div>
+				<div class="well" id="answer2"></div>
+				<div class="well" id="answer3"></div>
+				<div class="well" id="answer4"></div>
+			</div>
+		</center>
 
 		<!--<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
 			<a class="btn btn-primary btn-lg" href="#" role="button">Play!</a>
