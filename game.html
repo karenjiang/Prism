@@ -29,7 +29,8 @@
 						answers:["One month", "One year", "Ten years", "Twenty years"],
 						correctAnswer:3, //The correct answer is the fourth, but this is number 3 STARTING AT 0. I.e, first is "0", second is "1", third is "2", and fourth is "3"
 						value:100,
-						open:true
+						taken:false,
+						correct:undefined,
 					},
 					//200 points
 					{
@@ -144,6 +145,29 @@
 			function hideAndShow(pageToBeHidden, pageToBeShown) {
 				hidePage(pageToBeHidden);
 				showPage(pageToBeShown);
+
+				if (pageToBeShown == "chooseQuestionPage") {
+					for (categoryIt = 0; categoryIt < questions.length; categoryIt++) {
+						for (valueIt = 0; valueIt < questions.length; valueIt++) {
+							if (questions[categoryIt][valueIt].taken) {
+								var divId = "" + (categoryIt + 1) + "." + ((valueIt + 1) * 100);
+								console.log("divID = " + divId + "\n");
+								var element = document.getElementById(divId);
+								element.innerHTML = "<p>" + ((valueIt + 1) * 100) + "</p>";
+								if (questions[categoryIt][valueIt].correct) {
+									element.class = "alert alert-success";
+								} else {
+									element.class = "alert alert-danger";
+								}
+								/*
+								<div class="well" id="1.200">
+									<a href="#">200</a>
+								</div>
+								*/
+							}
+						}
+					}
+				}
 			}
 
 			function showQuestionPage(pageToBeShown, pageToBeHidden, setCategory, setValue) {
@@ -152,32 +176,38 @@
 				currentCategory = setCategory;
 				currentValue = setValue;
 				setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"))'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer1");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"))'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer2");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"))'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer3");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer4\"))'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer4");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"))'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"))'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"))'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"))'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer0");
 				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
-				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer2");
-				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer3");
-				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer4");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
 				//return false;
 			}
 
 			function submitQuestion(div, selectedChoice) {
 				var correctAnswer = getCorrectAnswer(currentCategory, currentValue);
+				console.log("currentCategory = " + currentCategory + "\ncurrentValue = " + currentValue + "\n")
+				questions[currentCategory][(currentValue/100) - 1].taken = true;
+				console.log("questions[" + currentCategory + "][" + ((currentValue/100) - 1) + "]");
 				if (selectedChoice != correctAnswer) {
 					div.className = "col-md-6 alert alert-danger";
 					score -= currentValue;
+					questions[currentCategory][(currentValue/100) - 1].correct = false;
 				} else {
 					score += currentValue;
+					questions[currentCategory][(currentValue/100) - 1].correct = true;
 				}
-				var correctDivId = "answer" + (correctAnswer + 1);
+				var correctDivId = "answer" + correctAnswer;
 				document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
 
-				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 0) + "</p>", "answer1");
-				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 1) + "</p>", "answer2");
-				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 2) + "</p>", "answer3");
-				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 3) + "</p>", "answer4");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 0) + "</p>", "answer0");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 1) + "</p>", "answer1");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 2) + "</p>", "answer2");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 3) + "</p>", "answer3");
+				setHtmlDivText("<button type='button' class='btn btn-primary' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>Return</button>", "return");
 			}
 
 		</script>
@@ -223,22 +253,22 @@
 				<br>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="well" id="1.100">
 							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">	
-			  			<div class="well">
+			  			<div class="well" id="1.200">
 							<a href="#">200</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="well" id="2.100">
 							<a href="#">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="well" id="2.200">
 							<a href="#">200</a>
 						</div>
 					</div>
@@ -295,6 +325,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3"></div>
+					<div class="col-md-6 well" id="answer0"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3"></div>
 					<div class="col-md-6 well" id="answer1"></div>
 				</div>
 				<div class="row">
@@ -305,10 +339,7 @@
 					<div class="col-md-3"></div>
 					<div class="col-md-6 well" id="answer3"></div>
 				</div>
-				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-6 well" id="answer4"></div>
-				</div>
+				<div class="row" id="return"></div>
 			</div>
 		</center>
 	<body>
