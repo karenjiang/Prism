@@ -148,22 +148,16 @@
 
 				if (pageToBeShown == "chooseQuestionPage") {
 					for (categoryIt = 0; categoryIt < questions.length; categoryIt++) {
-						for (valueIt = 0; valueIt < questions.length; valueIt++) {
+						for (valueIt = 1; valueIt < questions.length; valueIt++) {
 							if (questions[categoryIt][valueIt].taken) {
-								var divId = "" + (categoryIt + 1) + "." + ((valueIt + 1) * 100);
-								console.log("divID = " + divId + "\n");
+								var divId = "" + (categoryIt + 1) + "." + (valueIt * 100);
 								var element = document.getElementById(divId);
-								element.innerHTML = "<p>" + ((valueIt + 1) * 100) + "</p>";
+								element.innerHTML = "<p>" + (valueIt * 100) + "</p>";
 								if (questions[categoryIt][valueIt].correct) {
-									element.class = "alert alert-success";
+									element.className = "alert alert-success";
 								} else {
-									element.class = "alert alert-danger";
+									element.className = "alert alert-danger";
 								}
-								/*
-								<div class="well" id="1.200">
-									<a href="#">200</a>
-								</div>
-								*/
 							}
 						}
 					}
@@ -176,10 +170,10 @@
 				currentCategory = setCategory;
 				currentValue = setValue;
 				setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"))'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"))'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"))'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
-				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"))'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"),1)'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"),2)'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"),3)'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
 				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer0");
 				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
 				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
@@ -189,16 +183,14 @@
 
 			function submitQuestion(div, selectedChoice) {
 				var correctAnswer = getCorrectAnswer(currentCategory, currentValue);
-				console.log("currentCategory = " + currentCategory + "\ncurrentValue = " + currentValue + "\n")
-				questions[currentCategory][(currentValue/100) - 1].taken = true;
-				console.log("questions[" + currentCategory + "][" + ((currentValue/100) - 1) + "]");
+				questions[currentCategory][currentValue/100].taken = true;
 				if (selectedChoice != correctAnswer) {
 					div.className = "col-md-6 alert alert-danger";
 					score -= currentValue;
-					questions[currentCategory][(currentValue/100) - 1].correct = false;
+					questions[currentCategory][currentValue/100].correct = false;
 				} else {
 					score += currentValue;
-					questions[currentCategory][(currentValue/100) - 1].correct = true;
+					questions[currentCategory][currentValue/100].correct = true;
 				}
 				var correctDivId = "answer" + correctAnswer;
 				document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
@@ -253,66 +245,66 @@
 				<br>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="well" id="1.100">
+			  			<div class="alert alert-info" id="1.100">
 							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">	
-			  			<div class="well" id="1.200">
+			  			<div class="alert alert-info" id="1.200">
 							<a href="#">200</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well" id="2.100">
+			  			<div class="alert alert-info" id="2.100">
 							<a href="#">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well" id="2.200">
+			  			<div class="alert alert-info" id="2.200">
 							<a href="#">200</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">400</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">400</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">600</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="well">
+			  			<div class="alert alert-info">
 							<a href="#">600</a>
 						</div>
 					</div>
@@ -325,19 +317,19 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3"></div>
-					<div class="col-md-6 well" id="answer0"></div>
+					<div class="col-md-6 alert alert-info" id="answer0"></div>
 				</div>
 				<div class="row">
 					<div class="col-md-3"></div>
-					<div class="col-md-6 well" id="answer1"></div>
+					<div class="col-md-6 alert alert-info" id="answer1"></div>
 				</div>
 				<div class="row">
 					<div class="col-md-3"></div>
-					<div class="col-md-6 well" id="answer2"></div>
+					<div class="col-md-6 alert alert-info" id="answer2"></div>
 				</div>
 				<div class="row">
 					<div class="col-md-3"></div>
-					<div class="col-md-6 well" id="answer3"></div>
+					<div class="col-md-6 alert alert-info" id="answer3"></div>
 				</div>
 				<div class="row" id="return"></div>
 			</div>
