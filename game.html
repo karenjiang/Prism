@@ -14,6 +14,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 		<script>
+			var score = 0;
+
 			var currentCategory;
 			var currentValue;
 
@@ -26,7 +28,8 @@
 						question:"For how many years was Odysseus away?",
 						answers:["One month", "One year", "Ten years", "Twenty years"],
 						correctAnswer:3, //The correct answer is the fourth, but this is number 3 STARTING AT 0. I.e, first is "0", second is "1", third is "2", and fourth is "3"
-						value:100
+						value:100,
+						open:true
 					},
 					//200 points
 					{
@@ -114,6 +117,10 @@
 				return questions[categoryNum][pointVal/100].answers[answerNum];
 			}
 
+			function getCorrectAnswer(categoryNum, pointVal) {
+				return questions[categoryNum][pointVal/100].correctAnswer;
+			}
+
 			function isAnsweCorrect(categoryNum, pointVal, selectedChoice) {
 				var correct = false;
 				if (selectedChoice = questions[categoryNum][(pointVal/100) - 1].correctAnswer) {
@@ -126,17 +133,51 @@
 				document.getElementById(divId).innerHTML = text;
 			}
 
+			function hidePage(pageToBeHidden) {
+				document.getElementById(pageToBeHidden).style.display='none'; 
+			}
+
+			function showPage(pageToBeShown) {
+				document.getElementById(pageToBeShown).style.display='block';
+			}
+
+			function hideAndShow(pageToBeHidden, pageToBeShown) {
+				hidePage(pageToBeHidden);
+				showPage(pageToBeShown);
+			}
+
 			function showQuestionPage(pageToBeShown, pageToBeHidden, setCategory, setValue) {
 				document.getElementById(pageToBeShown).style.display='block';
 				document.getElementById(pageToBeHidden).style.display='none';
-				category = setCategory;
-				value = setValue;
-				setHtmlDivText(getQuestion(category, value), "question");
-				setHtmlDivText(getAnswerChoice(category, value, 0), "answer1");
-				setHtmlDivText(getAnswerChoice(category, value, 1), "answer2");
-				setHtmlDivText(getAnswerChoice(category, value, 2), "answer3");
-				setHtmlDivText(getAnswerChoice(category, value, 3), "answer4");
+				currentCategory = setCategory;
+				currentValue = setValue;
+				setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"))'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer1");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"))'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer2");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"))'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer3");
+				setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer4\"))'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer4");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer2");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer3");
+				//setHtmlDivText("<a href='#' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer4");
 				//return false;
+			}
+
+			function submitQuestion(div, selectedChoice) {
+				var correctAnswer = getCorrectAnswer(currentCategory, currentValue);
+				if (selectedChoice != correctAnswer) {
+					div.className = "col-md-6 alert alert-danger";
+					score -= currentValue;
+				} else {
+					score += currentValue;
+				}
+				var correctDivId = "answer" + (correctAnswer + 1);
+				document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
+
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 0) + "</p>", "answer1");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 1) + "</p>", "answer2");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 2) + "</p>", "answer3");
+				setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 3) + "</p>", "answer4");
 			}
 
 		</script>
@@ -186,7 +227,7 @@
 							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 100)">100</a>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3">	
 			  			<div class="well">
 							<a href="#">200</a>
 						</div>
@@ -247,25 +288,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="container" id="questionPage" display="none"> <!--WONT BE SHOWN AT FIRST, USE THE MULTIPLE PAGES THING--> 
-				<div class="well" id="question"></div>
-				<div class="well" id="answer1"></div>
-				<div class="well" id="answer2"></div>
-				<div class="well" id="answer3"></div>
-				<div class="well" id="answer4"></div>
+			<div class="container" id="questionPage" style="display:none"> <!--WONT BE SHOWN AT FIRST, USE THE MULTIPLE PAGES THING--> 
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-10 well" id="question"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6 well" id="answer1"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6 well" id="answer2"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6 well" id="answer3"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6 well" id="answer4"></div>
+				</div>
 			</div>
 		</center>
-
-		<!--<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
-			<a class="btn btn-primary btn-lg" href="#" role="button">Play!</a>
-		</canvas>
-		<script>
-			var c = document.getElementById("myCanvas");
-			var ctx = c.getContext("2d");
-			ctx.canvas.width  = window.innerWidth;
-			ctx.canvas.height = window.innerHeight;
-			ctx.fillStyle = "rgb(69,131,251)";
-			ctx.fillRect(0,0,150,75);
-		</script>-->
 	<body>
 </html>
