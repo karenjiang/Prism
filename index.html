@@ -10,13 +10,39 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	</head>
-	<body>
-		<div class="jumbotron">
+	<body style="background:url('images/ruins.jpg');background-size:100%">
+		<nav class="navbar navbar-fixed-top navbar-inverse">
+		    <div class="container-fluid">
+		        <!-- Brand and toggle get grouped for better mobile display -->
+		        <div class="navbar-header">
+		            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		                <span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		            </button>
+		            <a href="index.html"><img src="images/Prism_Logo.png" style="height:50px;padding:4px" alt="Prism"></a>
+		            <!--<a class="navbar-brand" href="#">Brand</a>-->
+		        </div>
+
+		        <!-- Collect the nav links, forms, and other content for toggling -->
+		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		            <ul class="nav navbar-nav">
+		            	<!--<li>&nbsp &nbsp</li>-->
+		                <li><a href="game.html">Play</a></li>
+		                <li><a href="#">About</a></li>
+		                <li><a href="#">Settings</a></li>
+		            </ul>
+		        </div><!-- /.navbar-collapse -->
+		    </div><!-- /.container-fluid -->
+		</nav>
+		<br><br>
+		<div class="jumbotron fixed-bottom" style="position:fixed; bottom:0; width: 100%; background: rgba(244, 246, 236, 0.75);">
 			<div class="container">
 				<h1>Prism</h1>
 				<h3>A website to test students, review liturature, and have fun.</h3>
-				<p>Use this Jeopardy-like game to review major topics from books such as <i>The Odyssey</i>, with friends and classmates!</p>
-				<p><a class="btn btn-primary btn-lg" href="#" role="button">Play!</a></p>
+				<p>Use this quiz game to review major topics from topics such as <i>The Odyssey</i>, with friends and classmates!</p>
+				<p><a class="btn btn-primary btn-lg" href="game.html" role="button">Play!</a></p>
 			</div>
 		</div>
 	<body>
