@@ -1,187 +1,241 @@
 var questions = [
-	//Category 1
 	[
 		"Plot",
-		//100 points
 		{
-			question:"For how many years was Odysseus away?",
+			question:"For how long is Odysseus away?",
 			answers:["One month", "One year", "Ten years", "Twenty years"],
-			correctAnswer:3, //The correct answer is the fourth, but this is number 3 STARTING AT 0. I.e, first is "0", second is "1", third is "2", and fourth is "3"
+			correctAnswer:3,
 			value:100,
 			taken:false,
 			correct:undefined,
 		},
-		//200 points
+		{
+			question:"How does Poseidon punish the Phaecians for assisting Odysseus?",
+			answers:["He sends a tidal wave and sinks the island", "He turns the king and queen into beasts", "He turns a ship into stone and blocks the harbor", "He does nothing"],
+			correctAnswer:2,
+			value:200,
+			taken:false,
+			correct:undefined,
+		},
 		{
 			question:"What do the suitors do when hearing of Telemachus’ journey?",
-			answers:["Try poisoning his drink", "Plan a naval ambush", "Compete more urgently for Penelope’s hand", "Flee the royal palace"],
+			answers:["They try poisoning his drink", "They plan a naval ambush", "They compete more urgently for Penelope’s hand", "They flee the royal palace"],
 			correctAnswer:1,
-			value:200,
+			value:300,
 			taken:false,
 			correct:undefined,
 		},
-		//300 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Which tribe does Odysseus plunder immediately after the war ends?",
+			answers:["Trojans", "Spartans", "Cicones", "Sicilians"],
+			correctAnswer:2,
+			value:400,
+			taken:false,
+			correct:undefined,
 		},
-		//400 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Which identifying marks allows the nurse to identify Odysseus?",
+			answers:["His speech", "A blotchy birthmark just behind his left ear", "A scar on the upper back from falling off a horse", "A hunting mark on the leg"],
+			correctAnswer:3,
+			value:500,
+			taken:false,
+			correct:undefined,
 		},
-		//500 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-		//600 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Which disguise does Odysseus test Eumaeus under?",
+			answers:["An Egyptian soldier", "An aristocrat from Crete's bastard", "Zeus", "A beggar"],
+			correctAnswer:1,
+			value:600,
+			taken:false,
+			correct:undefined,
 		},
 	],
-	//Category 2
 	[
 		"Characters",
-		//100 points
 		{
-			question:"Which god assists Odysseus and later Telemachus many times throughout their journeys?",
-			answers:["Athena", "Artemis", "Poseidon", "Zeus"],
-			correctAnswer:0,
+			question:"Who is Odysseus' second in command?",
+			answers:["Eurycleia", "Elpenor", "Eurylochus", "Eurymachus"],
+			correctAnswer:2,
 			value:100,
 			taken:false,
 			correct:undefined,
 		},
-		//200 points
 		{
-			question:"Under which disguise did Odysseus test Eumaeus?",
-			answers:["A soldier", "A beggar", "Zeus", "He had no disguise"],
+			question:"Who is the king of the Phaeacians?",
+			answers:["Alcinous", "Menelaus", " Agamemnon ", "Antinous"],
+			correctAnswer:0,
+			value:200,
+			taken:false,
+			correct:undefined,
+		},
+		{
+			question:"What is the name of Odysseus’ mother?",
+			answers:["Laertes", "Autolycus", "Anticleia", "She is never referred to by name"],
+			correctAnswer:2,
+			value:300,
+			taken:false,
+			correct:undefined,
+		},
+		{
+			question:"Who is responsible for the destruction of most of Odysseus’ fleet?",
+			answers:["Polyphemus", "Laestrygonians", "Cicones", "Scylla and Charybdis"],
+			correctAnswer:1,
+			value:400,
+			taken:false,
+			correct:undefined,
+		},
+		{
+			question:"Who is not an ally of Odysseus?",
+			answers:["Eumaeus", "Phemius", "Philoetius", "None of the above"],
+			correctAnswer:3,
+			value:500,
+			taken:false,
+			correct:undefined,
+		},
+		{
+			question:"Who gifts Odysseus winds to push him home?",
+			answers:["Antiphates", "Alcinous", "Aeetes", "Aeolus"],
+			correctAnswer:3,
+			value:600,
+			taken:false,
+			correct:undefined,
+		},
+	],
+	[
+		"Themes and Symbols",
+		{
+			question:"Which goddess is a recurring character, yet does not speak?",
+			answers:["Demeter", "Aphrodite", "Dawn", "Athena"],
+			correctAnswer:2,
+			value:100,
+			taken:false,
+			correct:undefined,
+		},
+		{
+			question:"Xenia is the concept of which virtue in Ancient Greece?",
+			answers:["Loyalty", "Hospitality", "Familial love", "Courage"],
 			correctAnswer:1,
 			value:200,
 			taken:false,
 			correct:undefined,
 		},
-		//300 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Characters frequently test each other using...?",
+			answers:["Riddles", "Traps", "Games", "Disguises"],
+			correctAnswer:3,
+			value:300,
+			taken:false,
+			correct:undefined,
 		},
-		//400 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Circe and Calypso are characters who both symbolize which theme?",
+			answers:["Courage", "Lust", "Temptation", "Cunning"],
+			correctAnswer:2,
+			value:400,
+			taken:false,
+			correct:undefined,
 		},
-		//500 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"From what tree does Odysseus carve his and Penelope’s wedding bed?",
+			answers:["Oak", "Ash", "Olive", "Pear"],
+			correctAnswer:2,
+			value:500,
+			taken:false,
+			correct:undefined,
 		},
-		//600 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"What does Odysseus’ bow represent?",
+			answers:["Physical strength", "Loyalty", "Perseverance", "Love"],
+			correctAnswer:0,
+			value:600,
+			taken:false,
+			correct:undefined,
 		},
 	],
-	//More categories...
-	//Category 3
 	[
-		"Category 3",
-		//100 points
+		"Quotes: Who Said It?",
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0,
+			question:"Identify the speaker of this quote: “I tell you this—bear it in mind, you must—\nwhen you reach your homeland steer your ship\ninto port in secret, never out in the open…\nthe time for trusting women’s gone forever!”",
+			answers:["Tiresias", "Agamemnon", "Menelaus", "Zeus"],
+			correctAnswer:1,
 			value:100,
 			taken:false,
 			correct:undefined,
 		},
-		//200 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0,
+			question:"Identify the speaker of this quote: “Even so, you and your crew may still reach home,\nsuffering all the way, if you only have the power\nto curb their wild desire and curb your own”",
+			answers:["Zeus", "Tiresias", "Hermes", "Menelaus"],
+			correctAnswer:1,
 			value:200,
 			taken:false,
 			correct:undefined,
 		},
-		//300 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-		//400 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-		//500 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-		//600 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-	],
-	//Category 4
-	[
-		"Category 4",
-		//100 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0,
-			value:100,
+			question:"Identify the speaker of this quote: “Ah how shameless—the way these mortals blame the gods.\nFrom us alone, they say, come all their miseries, yes,\nbut they themselves, with their own reckless ways,\ncompound their pains beyond their proper share.”",
+			answers:["Poseidon", "Hermes", "Zeus", "Athena"],
+			correctAnswer:2,
+			value:300,
 			taken:false,
 			correct:undefined,
 		},
-		//200 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
+			question:"Identify the speaker of this quote: “But here’s an unlucky wanderer strayed our way\nand we must tend him well. Every stranger and beggar\ncomes from Zeus, and whatever scrap we give him he’ll be glad to get.”",
+			answers:["Nausicaa", "Arete", "Menelaus", "Helen"],
 			correctAnswer:0,
-			value:200,
+			value:400,
 			taken:false,
 			correct:undefined,
 		},
-		//300 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Identify the speaker of this quote: “You should be ashamed yourselves,\nmortified in the face of neighbors living round about!\nFear the gods’ wrath—before they wheel in outrage\nand make these crimes recoil on your heads. ”",
+			answers:["Antinous", "Eumaeus", "Mentor", "Telemachus"],
+			correctAnswer:3,
+			value:500,
+			taken:false,
+			correct:undefined,
 		},
-		//400 points
 		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
+			question:"Identify the speaker of this quote: “Trust me, the blessed gods have no love for crime. They honor justice, honor the decent acts of men.”",
+			answers:["Tiresias", "Odysseus", "Eumaeus", "Mentor"],
+			correctAnswer:2,
+			value:600,
+			taken:false,
+			correct:undefined,
 		},
-		//500 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-		//600 points
-		{
-			question:" ... ",
-			answers:[" ... ", " ... ", " ... ", " ... "],
-			correctAnswer:0
-		},
-	],
+	]
+];
+
+var finalQuestions = [
+	{
+		question:"How many books are in <i>The Odyssey</i>?",
+		answers:["20", "23", "24", "27"],
+		correctAnswer:2,
+		value:0,
+		taken:false,
+		correct:undefined,
+	},
+	{
+		question:"Who translated <i>The Odyssey</i>?",
+		answers:["Homer", "Robbie Faegle", "Robert Fagles", "The translator is unknown"],
+		correctAnswer:2,
+		value:0,
+		taken:false,
+		correct:undefined,
+	},
+	{
+		question:"Which location is never directly reached throughout the book?",
+		answers:["Pylos", "Athens", "Sparta", "Ithica"],
+		correctAnswer:1,
+		value:0,
+		taken:false,
+		correct:undefined,
+	},
+	{
+		question:"Who is the god of the sun?",
+		answers:["Helios", "Helius", "Heliod", "Apollo"],
+		correctAnswer:0,
+		value:0,
+		taken:false,
+		correct:undefined,
+	},
 ];

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-		
+
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -32,13 +32,54 @@
 		            <ul class="nav navbar-nav">
 		            	<!--<li>&nbsp &nbsp</li>-->
 		                <li><a href="game.html">Play</a></li>
-		                <li><a href="#">About</a></li>
-		                <li><a href="#">Settings</a></li>
+		                <li><a href="#" data-toggle="modal" data-target="#About">About</a></li>
+		                <li><a href="#" data-toggle="modal" data-target="#HowToPlay">How to play</a></li>
 		            </ul>
 		        </div><!-- /.navbar-collapse -->
 		    </div><!-- /.container-fluid -->
 		</nav>
 		<br><br>
+		<div class="modal fade" id="About" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        		<h4 class="modal-title" id="myModalLabel">Instructions</h4>
+		      		</div>
+		      		<div class="modal-body">
+      					<img src="images/Prism_Logo.png" alt="Prism Logo" style="padding-left:20%;width:80%">
+		        		<p>Prism is a game made by Jake Sanders, Karen Jiang, Arul Kapoor, and William Hah for Computer Science II at the Horace Mann School. It was made for Ms. Bahr for use in reviewing material such as <i>The Odyssey</i>. It is built in HTML and JavaScript, using bootstrap.</p>
+		        		<br><br>
+		        		<p>Made in May 2016.</p>
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+		<div class="modal fade" id="HowToPlay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        		<h4 class="modal-title" id="myModalLabel">Instructions</h4>
+		      		</div>
+		      		<div class="modal-body">
+		        		<p>To play, simply press on a blue value to get to a question. Four choices will be shown. Select the best one, and you will either gain points equal to the value if you're right, or lose half that many points. Then continue, in all different categories with all different questions! It's as easy as that!</p>
+						<br><br><br>
+		        		<p>The further you go through the game, the more likely you will be prompted to go to the final question. After answering all of the questions, you will automatically proceed to it, and you can always choose to by pressing the button at the bottom of the select-questions page. There, you can bet any amount of money up to your total. If you win, you get that much, but be careful! If you lose, <b>all</b> of that money disappears!</p>
+						<br><br><br>
+		        		<p>Note, the questions may vary each time you play, so you can have many rounds of fun!</p>
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+
+
 		<div class="jumbotron fixed-bottom" style="position:fixed; bottom:0; width: 100%; background: rgba(244, 246, 236, 0.75);">
 			<div class="container">
 				<h1>Prism</h1>
