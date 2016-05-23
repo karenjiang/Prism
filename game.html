@@ -15,227 +15,19 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+		<script src="questions.js"></script>
+
 		<script>
 	
 			var score = 1000;
 
 			var finalWager = 0;
-			var finalQuestionNum;
 			var timeoutId;
 
 			var currentCategory;
 			var currentValue;
 
-			var finalQuestions = [
-				{
-					question:"Final question 1",
-					answers:["A", "B", "C", "D"],
-					correctAnswer:0,
-				},
-				{
-					question:"Final question 2",
-					answers:["A", "B", "C", "D"],
-					correctAnswer:1,
-				},
-				{
-					question:"Final question 3",
-					answers:["A", "B", "C", "D"],
-					correctAnswer:2,
-				},
-				{
-					question:"Final question 4",
-					answers:["A", "B", "C", "D"],
-					correctAnswer:3,
-				},
-			]
-
-			var questions = [
-				//Category 1
-				[
-					"Plot",
-					//100 points
-					{
-						question:"For how many years was Odysseus away?",
-						answers:["One month", "One year", "Ten years", "Twenty years"],
-						correctAnswer:3, //The correct answer is the fourth, but this is number 3 STARTING AT 0. I.e, first is "0", second is "1", third is "2", and fourth is "3"
-						value:100,
-						taken:false,
-						correct:undefined,
-					},
-					//200 points
-					{
-						question:"What do the suitors do when hearing of Telemachus’ journey?",
-						answers:["Try poisoning his drink", "Plan a naval ambush", "Compete more urgently for Penelope’s hand", "Flee the royal palace"],
-						correctAnswer:1,
-						value:200,
-						taken:false,
-						correct:undefined,
-					},
-					//300 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//400 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//500 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//600 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-				],
-				//Category 2
-				[
-					"Characters",
-					//100 points
-					{
-						question:"Which god assists Odysseus and later Telemachus many times throughout their journeys?",
-						answers:["Athena", "Artemis", "Poseidon", "Zeus"],
-						correctAnswer:0,
-						value:100,
-						taken:false,
-						correct:undefined,
-					},
-					//200 points
-					{
-						question:"Under which disguise did Odysseus test Eumaeus?",
-						answers:["A soldier", "A beggar", "Zeus", "He had no disguise"],
-						correctAnswer:1,
-						value:200,
-						taken:false,
-						correct:undefined,
-					},
-					//300 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//400 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//500 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//600 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-				],
-				//More categories...
-				//Category 3
-				[
-					"Category 3",
-					//100 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0,
-						value:100,
-						taken:false,
-						correct:undefined,
-					},
-					//200 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0,
-						value:200,
-						taken:false,
-						correct:undefined,
-					},
-					//300 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//400 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//500 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//600 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-				],
-				//Category 4
-				[
-					"Category 4",
-					//100 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0,
-						value:100,
-						taken:false,
-						correct:undefined,
-					},
-					//200 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0,
-						value:200,
-						taken:false,
-						correct:undefined,
-					},
-					//300 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//400 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//500 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-					//600 points
-					{
-						question:" ... ",
-						answers:[" ... ", " ... ", " ... ", " ... "],
-						correctAnswer:0
-					},
-				],
-			];
+			var finalQuestion;
 
 			var questionsLeft = 0;
 
@@ -271,21 +63,21 @@
 				return correct;
 			}
 
-			function getFinalQuestion(questionNum) {
-				return finalQuestions[questionNum].question;
+			function getFinalQuestion() {
+				return finalQuestion.question;
 			} 
 
-			function getFinalAnswerChoice(questionNum, answerNum) {
-				return finalQuestions[finalQuestionNum].answers[answerNum];
+			function getFinalAnswerChoice(answerNum) {
+				return finalQuestion.answers[answerNum];
 			}
 
-			function getFinalCorrectAnswer(questionNum) {
-				return finalQuestions[questionNum].correctAnswer;
+			function getFinalCorrectAnswer() {
+				return finalQuestion.correctAnswer;
 			}
 
-			function isFinalAnsweCorrect(questionNum, selectedChoice) {
+			function isFinalAnsweCorrect(selectedChoice) {
 				var correct = false;
-				if (selectedChoice = finalQuestions[questionNum].correctAnswer) {
+				if (selectedChoice = finalQuestion.correctAnswer) {
 					correct = true;
 				}
 				return correct;
@@ -334,14 +126,23 @@
 				//Chance of going to final question:
 				var chanceForFinale = Math.floor((totalQuestions - 3) * Math.random());
 				console.log("Will move on if semi-random number is greater than number of remaining questions.\nsemi-random number: " + chanceForFinale + "\nRemaining questions: " + questionsLeft);
-				if (chanceForFinale >= questionsLeft) {
-					showFinalQuestionPage('questionPage', 'chooseQuestionPage');
+				if (questionsLeft == 0) {
+					showFinalQuestionPage();
+				}
+				else if (chanceForFinale >= questionsLeft) {
+					if (confirm("Are you ready for the final question?")) {
+						showFinalQuestionPage();
+					}
 				}
 			}
 
-			function showFinalQuestionPage(pageToBeShown, pageToBeHidden) {
-				document.getElementById(pageToBeShown).style.display='block';
-				document.getElementById(pageToBeHidden).style.display='none';
+			//This function is the one that starts the final question segment
+			function showFinalQuestionPage() {
+				var finalQuestionCategory = Math.floor(Math.random() * questions.length);
+				var finalQuestionValue = Math.floor(Math.random() * (questions[finalQuestionCategory].length - 1));
+				finalQuestionValue++; //This way it won't be the category name
+				finalQuestion = questions[finalQuestionCategory][finalQuestionValue];
+
 				while (true) {
 					if (score > 0) {
 						finalWager = prompt("Final Question: How much would you like to wager?", "");
@@ -370,19 +171,20 @@
 					}
 				}
 
-				finalQuestionNum = Math.floor(Math.random() * finalQuestions.length);
+				document.getElementById('questionPage').style.display='block';
+				document.getElementById('chooseQuestionPage').style.display='none';
 
-				setHtmlDivText("<b>Final question: </b>" + getFinalQuestion(finalQuestionNum), "question");
-				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer0\"),0)'>" + getFinalAnswerChoice(finalQuestionNum, 0) + "</a>", "answer0");
-				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer1\"),1)'>" + getFinalAnswerChoice(finalQuestionNum, 1) + "</a>", "answer1");
-				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer2\"),2)'>" + getFinalAnswerChoice(finalQuestionNum, 2) + "</a>", "answer2");
-				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer3\"),3)'>" + getFinalAnswerChoice(finalQuestionNum, 3) + "</a>", "answer3");
+				setHtmlDivText("<b>Final question: </b>" + getFinalQuestion(), "question");
+				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer0\"),0)'>" + getFinalAnswerChoice(0) + "</a>", "answer0");
+				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer1\"),1)'>" + getFinalAnswerChoice(1) + "</a>", "answer1");
+				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer2\"),2)'>" + getFinalAnswerChoice(2) + "</a>", "answer2");
+				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer3\"),3)'>" + getFinalAnswerChoice(3) + "</a>", "answer3");
 				setHtmlDivText("", "return");
 			}
 
-			function showQuestionPage(pageToBeShown, pageToBeHidden, setCategory, setValue) {
-				document.getElementById(pageToBeShown).style.display='block';
-				document.getElementById(pageToBeHidden).style.display='none';
+			function showQuestionPage(setCategory, setValue) {
+				document.getElementById('questionPage').style.display='block';
+				document.getElementById('chooseQuestionPage').style.display='none';
 				currentCategory = setCategory;
 				currentValue = setValue;
 				setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
@@ -422,8 +224,7 @@
 			}
 
 			function submitFinalQuestion(div, selectedChoice) {
-				var correctAnswer = getFinalCorrectAnswer(finalQuestionNum);
-				//finalQuestions[finalQuestionNum].taken = true;
+				var correctAnswer = getFinalCorrectAnswer();
 
 				clearTimeout(timeoutId);
 				setTimeout(function() { setHtmlDivText('','alert'); }, 7500);
@@ -495,15 +296,33 @@
 		            	<!--<li>&nbsp &nbsp</li>-->
 		                <li class="active"><a href="#">Play</a></li>
 		                <li><a href="#">About</a></li>
-		                <li><a href="#">Settings</a></li>
+		                <li><a href="#" data-toggle="modal" data-target="#myModal">How to play</a></li>
 		            </ul>
 		            <ul class="nav navbar-nav navbar-right">
-		                <li><a onclick="updateScore()" id="score">Current score: 0</a></li>
+		                <li><a onclick="updateScore()" id="score">Current score: 1000</a></li>
 		            </ul>
 		        </div><!-- /.navbar-collapse -->
 		    </div><!-- /.container-fluid -->
 		</nav>
 		<br><br><br>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        		<h4 class="modal-title" id="myModalLabel">Instructions</h4>
+		      		</div>
+		      		<div class="modal-body">
+		        		To play, simply press on a blue value to get to a question. Four choices will be shown. Select the best one, and you will either gain points equal to the value if you're right, or lose half that many points. Then continue, in all different categories with all different questions! It's as easy as that!
+						<br><br><br>
+		        		The further you go through the game, the more likely you will be prompted to go to the final question. After answering all of the questions, you will automatically proceed to it, and you can always choose to by pressing the button at the bottom of the select-questions page. There, you can bet any amount of money up to your total. If you win, you get that much, but be careful! If you lose, <b>all</b> of that money disappears!
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 
 
 		<div id="alert" class="container"></div>
@@ -531,66 +350,66 @@
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="alert alert-info" id="0.100">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 100)">100</a>
+							<a href="#" onclick="showQuestionPage(0, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">	
 			  			<div class="alert alert-info" id="0.200">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 200)">200</a>
+							<a href="#" onclick="showQuestionPage(0, 200)">200</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info" id="1.100">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 1, 100)">100</a>
+							<a href="#" onclick="showQuestionPage(1, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info" id="1.200">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 1, 200)">200</a>
+							<a href="#" onclick="showQuestionPage(1, 200)">200</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 300)">300</a>
+							<a href="#" onclick="showQuestionPage(0, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 400)">400</a>
+							<a href="#" onclick="showQuestionPage(0, 400)">400</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 1, 300)">300</a>
+							<a href="#" onclick="showQuestionPage(1, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 1, 400)">400</a>
+							<a href="#" onclick="showQuestionPage(1, 400)">400</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 500)">500</a>
+							<a href="#" onclick="showQuestionPage(0, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 0, 600)">600</a>
+							<a href="#" onclick="showQuestionPage(0, 600)">600</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 1, 500)">500</a>
+							<a href="#" onclick="showQuestionPage(1, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 1, 600)">600</a>
+							<a href="#" onclick="showQuestionPage(1, 600)">600</a>
 						</div>
 					</div>
 				</div>
@@ -615,68 +434,73 @@
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="alert alert-info" id="2.100">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 2, 100)">100</a>
+							<a href="#" onclick="showQuestionPage(2, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">	
 			  			<div class="alert alert-info" id="2.200">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 2, 200)">200</a>
+							<a href="#" onclick="showQuestionPage(2, 200)">200</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info" id="3.100">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 3, 100)">100</a>
+							<a href="#" onclick="showQuestionPage(3, 100)">100</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info" id="3.200">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 3, 200)">200</a>
+							<a href="#" onclick="showQuestionPage(3, 200)">200</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 2, 300)">300</a>
+							<a href="#" onclick="showQuestionPage(2, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 2, 400)">400</a>
+							<a href="#" onclick="showQuestionPage(2, 400)">400</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 3, 300)">300</a>
+							<a href="#" onclick="showQuestionPage(3, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 3, 400)">400</a>
+							<a href="#" onclick="showQuestionPage(3, 400)">400</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 2, 500)">500</a>
+							<a href="#" onclick="showQuestionPage(2, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 2, 600)">600</a>
+							<a href="#" onclick="showQuestionPage(2, 600)">600</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 3, 500)">500</a>
+							<a href="#" onclick="showQuestionPage(3, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
 			  			<div class="alert alert-info">
-							<a href="#" onclick="showQuestionPage('questionPage', 'chooseQuestionPage', 3, 600)">600</a>
+							<a href="#" onclick="showQuestionPage(3, 600)">600</a>
 						</div>
 					</div>
+				</div>
+				<br><br><br><br>
+				<div class="container row">
+					<div class="col-md-3"></div>
+					<div class="well col-md-6" style="align:center"><a href="#" onclick="showFinalQuestionPage()"><h4>Move to last question</h4></a></div>
 				</div>
 			</div>
 			<div class="container" id="questionPage" style="display:none"> <!--WONT BE SHOWN AT FIRST, USE THE MULTIPLE PAGES THING--> 
