@@ -38,7 +38,7 @@
 				}
 			}
 
-			const totalQuestions = questionsLeft;
+			var topValForFinishingGame = questionsLeft;
 
 			function getCategoryTitle(categoryNum) {
 				return questions[categoryNum][0];
@@ -113,6 +113,7 @@
 							if (questions[categoryIt][valueIt].taken) {
 								var divId = "" + (categoryIt) + "." + (valueIt * 100);
 								var element = document.getElementById(divId);
+								console.log(divId);
 								element.innerHTML = "<p>" + (valueIt * 100) + "</p>";
 								if (questions[categoryIt][valueIt].correct) {
 									element.className = "alert alert-success";
@@ -125,7 +126,7 @@
 				}
 
 				//Chance of going to final question:
-				var chanceForFinale = Math.floor((totalQuestions - 3) * Math.random());
+				var chanceForFinale = Math.floor((topValForFinishingGame - 3) * Math.random());
 				console.log("Will move on if semi-random number is greater than number of remaining questions.\nsemi-random number: " + chanceForFinale + "\nRemaining questions: " + questionsLeft);
 				if (questionsLeft == 0) {
 					showFinalQuestionPage();
@@ -133,6 +134,8 @@
 				else if (chanceForFinale >= questionsLeft) {
 					if (confirm("Are you ready for the final question?")) {
 						showFinalQuestionPage();
+					} else {
+						topValForFinishingGame *= .5;
 					}
 				}
 			}
@@ -301,10 +304,13 @@
 		                <li><a href="#" data-toggle="modal" data-target="#About">About</a></li>
 		                <li><a href="#" data-toggle="modal" data-target="#HowToPlay">How to play</a></li>
 		            </ul>
+		            <ul class="nav navbar-nav navbar-right">
+        				<li><a id="score">Current score: 1000</a></li>
+        			</ul>
 		        </div><!-- /.navbar-collapse -->
 		    </div><!-- /.container-fluid -->
 		</nav>
-		<br><br>
+		<br><br><br>
 		<div class="modal fade" id="About" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 		    	<div class="modal-content">
@@ -393,44 +399,44 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="0.300">
 							<a href="#" onclick="showQuestionPage(0, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="0.400">
 							<a href="#" onclick="showQuestionPage(0, 400)">400</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="1.300">
 							<a href="#" onclick="showQuestionPage(1, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="1.400">
 							<a href="#" onclick="showQuestionPage(1, 400)">400</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="0.500">
 							<a href="#" onclick="showQuestionPage(0, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="0.600">
 							<a href="#" onclick="showQuestionPage(0, 600)">600</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="1.500">
 							<a href="#" onclick="showQuestionPage(1, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="1.600">
 							<a href="#" onclick="showQuestionPage(1, 600)">600</a>
 						</div>
 					</div>
@@ -477,44 +483,44 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="2.300">
 							<a href="#" onclick="showQuestionPage(2, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="2.400">
 							<a href="#" onclick="showQuestionPage(2, 400)">400</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="3.300">
 							<a href="#" onclick="showQuestionPage(3, 300)">300</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="3.400">
 							<a href="#" onclick="showQuestionPage(3, 400)">400</a>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="2.500">
 							<a href="#" onclick="showQuestionPage(2, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="2.600">
 							<a href="#" onclick="showQuestionPage(2, 600)">600</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="3.500">
 							<a href="#" onclick="showQuestionPage(3, 500)">500</a>
 						</div>
 					</div>
 					<div class="col-md-3">
-			  			<div class="alert alert-info">
+			  			<div class="alert alert-info" id="3.600">
 							<a href="#" onclick="showQuestionPage(3, 600)">600</a>
 						</div>
 					</div>
