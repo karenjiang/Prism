@@ -40,6 +40,20 @@
 
 			var topValForFinishingGame = questionsLeft;
 
+			function isNumber(str) {
+				var noFloatingPoint = true;
+				for(iter = 0; iter < str.length; iter++) {
+					if ((str.charCodeAt(iter) >= 48 && str.charCodeAt(iter) <= 57) || (str.charAt(iter) == '.' && noFloatingPoint) || (str.charAt(iter) == '-' && iter == 0)) {
+						if (str.charAt(iter) == '.') {
+							noFloatingPoint = false;
+						}
+						continue;
+					}
+					return false;
+				}
+				return true;
+			}
+
 			function getCategoryTitle(categoryNum) {
 				return questions[categoryNum][0];
 			}
@@ -152,33 +166,40 @@
 				while (true) {
 					if (score > 0) {
 						finalWager = prompt("Final Question: How much would you like to wager?", "");
-						finalWager = Number(finalWager);
-						if (finalWager == NaN) {
+						if (!isNumber(finalWager)) {
 							alert("That wasn't a number... \nTry again.");
-						} else if (finalWager > score) {
-							alert("You don't have that much money... \nTry again.")
-						} else if (finalWager < 0) {
-							alert("Uhh, that's negative... \nTry again.")
 						} else {
-							break;
+							finalWager = Number(finalWager);
+
+							if (finalWager > score) {
+								alert("You don't have that much money... \nTry again.")
+							} else if (finalWager < 0) {
+								alert("Uhh, that's negative... \nTry again.")
+							} else {
+								break;
+							}
 						}
 					} else if (score < 0) {
 						finalWager = prompt("Final Question: You have negative money. You can bet up to the absolute value of your total.\nHow much would you like to wager?", "");
-						finalWager = Number(finalWager);
-						if (finalWager == NaN) {
+						if (!isNumber(finalWager)) {
 							alert("That wasn't a number... \nTry again.");
-						} else if (finalWager > -score) {
-							alert("You don't have that much money... \nTry again.")
-						} else if (finalWager < 0) {
-							alert("Please input a positive number... \nTry again.")
 						} else {
-							break;
+							finalWager = Number(finalWager);
+
+							if (finalWager > score) {
+								alert("You don't have that much money... \nTry again.")
+							} else if (finalWager < 0) {
+								alert("Uhh, that's negative... \nTry again.")
+							} else {
+								break;
+							}
 						}
 					}
 				}
 
 				document.getElementById('questionPage').style.display='block';
 				document.getElementById('chooseQuestionPage').style.display='none';
+				setHtmlDivText('','alert');
 
 				setHtmlDivText("<b>Final question: </b>" + getFinalQuestion(), "question");
 				setHtmlDivText("<a href='#' onclick='submitFinalQuestion(document.getElementById(\"answer0\"),0)'>" + getFinalAnswerChoice(0) + "</a>", "answer0");
@@ -191,6 +212,7 @@
 			function showQuestionPage(setCategory, setValue) {
 				document.getElementById('questionPage').style.display='block';
 				document.getElementById('chooseQuestionPage').style.display='none';
+				setHtmlDivText('','alert');
 				currentCategory = setCategory;
 				currentValue = setValue;
 				setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
@@ -209,12 +231,12 @@
 					score -= (.5 * currentValue);
 					questions[currentCategory][currentValue/100].correct = false;
 					setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! You lost ' + (.5 * currentValue) + ' points. Your new score is <b>' + score + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
-					timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
+					//timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
 				} else {
 					score += currentValue;
 					questions[currentCategory][currentValue/100].correct = true;
 					setHtmlDivText('<div class="alert alert-success" role="alert">Correct! You got ' + currentValue + ' points. Your new score is <b>' + score + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
-					timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
+					//timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
 				}
 				var correctDivId = "answer" + correctAnswer;
 				document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
@@ -232,7 +254,7 @@
 			function submitFinalQuestion(div, selectedChoice) {
 				var correctAnswer = getFinalCorrectAnswer();
 
-				clearTimeout(timeoutId);
+				//clearTimeout(timeoutId);
 				setTimeout(function() { setHtmlDivText('','alert'); }, 7500);
 
 				if (selectedChoice != correctAnswer) {
@@ -256,8 +278,6 @@
 				
 				var imageName;
 				var imageNum = Math.floor(Math.random() * 3);
-
-				imageNum = 2;
 
 				if (imageNum == 0) {
 					imageName = "url('images/stones.jpg')";
@@ -300,7 +320,7 @@
 		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		            <ul class="nav navbar-nav">
 		            	<!--<li>&nbsp &nbsp</li>-->
-		                <li class="active"><a href="game.html">Play</a></li>
+		                <li class="active"><a href="#">Play</a></li>
 		                <li><a href="#" data-toggle="modal" data-target="#About">About</a></li>
 		                <li><a href="#" data-toggle="modal" data-target="#HowToPlay">How to play</a></li>
 		            </ul>
@@ -319,7 +339,7 @@
 		        		<h4 class="modal-title" id="myModalLabel">Instructions</h4>
 		      		</div>
 		      		<div class="modal-body">
-		        		<img src="images/Prism_Logo.png" alt="Prism Logo" width="250">
+		        		<img src="images/Prism_Logo.png" alt="Prism Logo" style="padding-left:20%;width:80%">
 		        		<br>
 		        		<p>Prism is a game made by Jake Sanders, Karen Jiang, Arul Kapoor, and William Hah for Computer Science II at the Horace Mann School. It was made for Ms. Bahr for use in reviewing material such as <i>The Odyssey</i>. It is built in HTML and JavaScript, using bootstrap.</p>
 		        		<br><br>
@@ -353,7 +373,12 @@
 		</div>
 
 
-		<div id="alert" class="container"></div>
+		<div id="alert" class="container">
+			<div class="alert alert-warning" role="alert">
+				Your starting score is <b>1000</b>.
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+		</div>
 
 		<div align="center">
 			<br>

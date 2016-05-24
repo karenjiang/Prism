@@ -43,7 +43,7 @@ var questions = [
 		},
 		{
 			question:"Which disguise does Odysseus test Eumaeus under?",
-			answers:["An Egyptian soldier", "An aristocrat from Crete's bastard", "Zeus", "A beggar"],
+			answers:["A war hero hailing from Egypt", "The bastard of an aristocrat from Crete", "Zeus", "A beggar"],
 			correctAnswer:1,
 			value:600,
 			taken:false,
