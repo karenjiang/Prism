@@ -220,39 +220,39 @@ function showQuestionPage(setCategory, setValue) {
     currentValue = setValue;
     setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
 
-    for (a = 0; a < 4; a++) {
-        var text = getAnswerChoice(currentCategory, currentValue, a);
-        text += "<br><a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0"
+    for (answer = 0; answer < 4; answer++) {
+        var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
+        for (player = 0; player < scores.length; player++) {
+            text += "&nbsp;&nbsp;<a href='#' onclick='submitQuestion(document.getElementById(\"answer" + answer + "\")," + answer + "," + player + ")'>Player " + (player + 1) + "</a>&nbsp;&nbsp;";
+        }
+        setHtmlDivText(text, "answer" + answer);
     }
 
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0");
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"),1)'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"),2)'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"),3)'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
-    setHtmlDivText("", "return");
-
     /*
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0");
+    setHtmlDivText("<b>" + getAnswerChoice(currentCategory, currentValue, 0) + "</b><br><a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>Player 1</a>", "answer0");
     setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"),1)'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
     setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"),2)'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
     setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"),3)'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
-    setHtmlDivText("", "return");
     */
+
+    setHtmlDivText("", "return");
 }
 
-function submitQuestion(div, selectedChoice) {
+function submitQuestion(div, selectedChoice, player) {
     var correctAnswer = getCorrectAnswer(currentCategory, currentValue);
     questions[currentCategory][currentValue/100].taken = true;
     if (selectedChoice != correctAnswer) {
+        console.log("Incorrect!");
         div.className = "col-md-6 alert alert-danger";
-        score -= (.5 * currentValue);
+        scores[player] -= currentValue;
         questions[currentCategory][currentValue/100].correct = false;
-        setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! You lost ' + (.5 * currentValue) + ' points. Your new score is <b>' + score + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
+        setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! Player ' + player + ' lost ' + currentValue + ' points. Player ' + player + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
         //timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
     } else {
-        score += currentValue;
+        console.log("Correct!");
+        scores[player] += currentValue;
         questions[currentCategory][currentValue/100].correct = true;
-        setHtmlDivText('<div class="alert alert-success" role="alert">Correct! You got ' + currentValue + ' points. Your new score is <b>' + score + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
+        setHtmlDivText('<div class="alert alert-success" role="alert">Correct! Player ' + player + ' got ' + currentValue + ' points. Player ' + player + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
         //timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
     }
     var correctDivId = "answer" + correctAnswer;
