@@ -118,17 +118,10 @@ function hideAndShow(pageToBeHidden, pageToBeShown) {
     showPage(pageToBeShown);
 
     if (pageToBeHidden == "questionPage") { //Resets the question page
-        for (a = 0; a < 4; a++) {
-            for (player = 0; player < scores.length; player++) {
-                document.getElementById("answer" + a + "-" + player).className = "col-md-2 alert alert-info";
-            }
-        }
-        /*
         document.getElementById("answer0").className = "col-md-6 alert alert-info";
         document.getElementById("answer1").className = "col-md-6 alert alert-info";
         document.getElementById("answer2").className = "col-md-6 alert alert-info";
         document.getElementById("answer3").className = "col-md-6 alert alert-info";
-        */
     }
 
     if (pageToBeShown == "chooseQuestionPage") { //Sets the answered question as completed
@@ -227,8 +220,16 @@ function showQuestionPage(setCategory, setValue) {
     currentValue = setValue;
     setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
 
+    //Represents the answer choice number
     for (a = 0; a < 4; a++) {
-        setHtmlDivText(getQuestionBoxText(a, true), "answer" + a);
+        var text = getAnswerChoice(currentCategory, currentValue, a) + "<br>";
+
+        text += "<div class='col-md-" + (6 - scores.length) + "'></div>";
+
+        //Represents the player that clicked on the answer
+        for (b = 0; b < scores.length; b++) {
+            text += "<div class='col-md-2 alert alert-info' id='answer" + a + "-" + b + "'><a href='#' onclick='submitQuestion(document.getElementById(\"answer" + a + "-" + b + "\")," + a + ")'>Player " + b + "</a></div>";
+        }
     }
 
     setHtmlDivText("", "return");
@@ -312,28 +313,6 @@ function submitFinalQuestion(div, selectedChoice) {
     hidePage("questionPage");
 
     setHtmlDivText('<div class="jumbotron fixed-bottom" style="position:fixed; bottom:0; width: 100%; background: rgba(244, 246, 236, 0.75);"><div class="container"><h1>Final ' + getScoreText() + '</h1><h3>Thanks for playing!</h3><p><a class="btn btn-primary btn-lg" href="index.html" role="button">Home</a></p></div></div>','finalResult');
-}
-
-function getQuestionBoxText(answerNum, hasLinks) {
-    var text = "<br><b>" + getAnswerChoice(currentCategory, currentValue, answerNum) + "</b><br>";
-
-    text += "<div class='col-md-" + (6 - scores.length) + "'></div>";
-
-    if (hasLinks) {
-        //Represents the player that clicked on the answer
-        for (player = 0; player < scores.length; player++) {
-            text += "<div class='col-md-2 alert alert-info' id='answer" + answerNum + "-" + player + "'><a href='#' onclick='submitQuestion(document.getElementById(\"answer" + answerNum + "-" + player + "\")," + answerNum + ")'>Player " + (player + 1) + "</a></div>";
-        }
-    } else {
-        //Represents the player that clicked on the answer
-        for (player = 0; player < scores.length; player++) {
-            text += "<div class='col-md-2 alert alert-info' id='answer" + answerNum + "-" + player + "'><p>Player " + (player + 1) + "</p></div>";
-        }
-    }
-
-    console.log(text);
-
-    return text
 }
 
 function changeScore(player, value) {
