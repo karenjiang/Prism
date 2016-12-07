@@ -220,18 +220,15 @@ function showQuestionPage(setCategory, setValue) {
     currentValue = setValue;
     setHtmlDivText(getQuestion(currentCategory, currentValue), "question");
 
-    //Represents the answer choice number
     for (a = 0; a < 4; a++) {
-        var text = getAnswerChoice(currentCategory, currentValue, a) + "<br>";
-
-        text += "<div class='col-md-" + (6 - scores.length) + "'></div>";
-
-        //Represents the player that clicked on the answer
-        for (b = 0; b < scores.length; b++) {
-            text += "<div class='col-md-2 alert alert-info' id='answer" + a + "-" + b + "'><a href='#' onclick='submitQuestion(document.getElementById(\"answer" + a + "-" + b + "\")," + a + ")'>Player " + b + "</a></div>";
-        }
+        var text = getAnswerChoice(currentCategory, currentValue, a);
+        text += "<br><a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0"
     }
 
+    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>" + getAnswerChoice(currentCategory, currentValue, 0) + "</a>", "answer0");
+    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"),1)'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
+    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"),2)'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
+    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"),3)'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
     setHtmlDivText("", "return");
 
     /*
@@ -239,6 +236,7 @@ function showQuestionPage(setCategory, setValue) {
     setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"),1)'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
     setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"),2)'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
     setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"),3)'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
+    setHtmlDivText("", "return");
     */
 }
 
