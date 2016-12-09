@@ -1,3 +1,5 @@
+let MAX_TEAMS = 4;
+
 var scores = [1000];
 
 var finalWager = 0;
@@ -27,7 +29,7 @@ function initScores() {
             alert("That wasn't a number... \nTry again.");
         } else {
             numberTeams = Number(numberTeams);
-            if (numberTeams > 5) {
+            if (numberTeams > MAX_TEAMS) {
                 alert("Too many teams... \nTry less than 5.");
             } else if (numberTeams <= 0) {
                 alert("Um... wut?\n" + numberTeams + " teams?\nTry again.");
@@ -228,13 +230,6 @@ function showQuestionPage(setCategory, setValue) {
         setHtmlDivText(text, "answer" + answer);
     }
 
-    /*
-    setHtmlDivText("<b>" + getAnswerChoice(currentCategory, currentValue, 0) + "</b><br><a href='#' onclick='submitQuestion(document.getElementById(\"answer0\"),0)'>Player 1</a>", "answer0");
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer1\"),1)'>" + getAnswerChoice(currentCategory, currentValue, 1) + "</a>", "answer1");
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer2\"),2)'>" + getAnswerChoice(currentCategory, currentValue, 2) + "</a>", "answer2");
-    setHtmlDivText("<a href='#' onclick='submitQuestion(document.getElementById(\"answer3\"),3)'>" + getAnswerChoice(currentCategory, currentValue, 3) + "</a>", "answer3");
-    */
-
     setHtmlDivText("", "return");
 }
 
@@ -242,17 +237,15 @@ function submitQuestion(div, selectedChoice, player) {
     var correctAnswer = getCorrectAnswer(currentCategory, currentValue);
     questions[currentCategory][currentValue/100].taken = true;
     if (selectedChoice != correctAnswer) {
-        console.log("Incorrect!");
         div.className = "col-md-6 alert alert-danger";
         scores[player] -= currentValue;
         questions[currentCategory][currentValue/100].correct = false;
-        setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! Player ' + player + ' lost ' + currentValue + ' points. Player ' + player + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
+        setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! Player ' + (player + 1) + ' lost ' + currentValue + ' points. Player ' + (player + 1) + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
         //timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
     } else {
-        console.log("Correct!");
         scores[player] += currentValue;
         questions[currentCategory][currentValue/100].correct = true;
-        setHtmlDivText('<div class="alert alert-success" role="alert">Correct! Player ' + player + ' got ' + currentValue + ' points. Player ' + player + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
+        setHtmlDivText('<div class="alert alert-success" role="alert">Correct! Player ' + (player + 1) + ' got ' + currentValue + ' points. Player ' + (player + 1) + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
         //timeoutId = setTimeout(function() { setHtmlDivText('','alert'); }, 5000);
     }
     var correctDivId = "answer" + correctAnswer;
