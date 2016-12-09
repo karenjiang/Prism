@@ -320,7 +320,11 @@ function submitQuestion(div, selectedChoice, player) {
     } else { //If this is not the end of the question, but an incorrect answer is guessed
         div.className = "col-md-6 alert alert-danger";
         playersAnswered[player] = true;
+        answerChosen[selectedChoice] = true;
         scores[player] -= currentValue;
+        updateScores();
+
+        setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! Player ' + (player + 1) + ' lost ' + currentValue + ' points. Player ' + (player + 1) + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
 /*
         var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
         for (player = 0; player < scores.length; player++) {
@@ -332,13 +336,12 @@ function submitQuestion(div, selectedChoice, player) {
         for (answer = 0; answer < 4; answer++) {
             var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
             for (playerNum = 0; playerNum < scores.length; playerNum++) {
-                if (playersAnswered[playerNum] == true) {
-                    text += "&nbsp;&nbsp;Player " + (playerNum + 1) + "&nbsp;&nbsp;"
+                if (playersAnswered[playerNum] == true || answerChosen[answer] == true) {
+                    text += "&nbsp;&nbsp;<div class='text-danger'>Player " + (playerNum + 1) + "</div>&nbsp;&nbsp;"
                 } else {
                     text += "&nbsp;&nbsp;<a href='#' onclick='submitQuestion(document.getElementById(\"answer" + answer + "\")," + answer + "," + playerNum + ")'>Player " + (playerNum + 1) + "</a>&nbsp;&nbsp;";
                 }
             }
-            console.log(text);
             setHtmlDivText(text, "answer" + answer);
         }
     }
