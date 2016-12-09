@@ -288,6 +288,16 @@ function submitQuestion(div, selectedChoice, player) {
 
         setHtmlDivText('<div class="alert alert-success" role="alert">Correct! Player ' + (player + 1) + ' got ' + currentValue + ' points. Player ' + (player + 1) + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
 
+        //Set the text as text rather than a clickable <a> element so that no more answers can be clicked
+        for (answer = 0; answer < 4; answer++) {
+            var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
+            for (playerNum = 0; playerNum < scores.length; playerNum++) {
+                text += "&nbsp;&nbsp;<font class='" + (answer == correctAnswer ? "text-success" : "text-danger") + "'>Player " + (playerNum + 1) + "</font>&nbsp;&nbsp;"
+
+            }
+            setHtmlDivText(text, "answer" + answer);
+        }
+
         //All the other choices mean that the wrong answer has been guessed
     } else if (questionDone) { //If everyone has guessed (wrong) or everything but the right answer has been guessed
 
@@ -301,11 +311,13 @@ function submitQuestion(div, selectedChoice, player) {
         document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
 
         for (answer = 0; answer < 4; answer++) {
-            //Set the text as as a <p> element rather than a clickable <a> element so that no more answers can be clicked
+            //Set the text as text rather than a clickable <a> element so that no more answers can be clicked
             var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
-            for (player = 0; player < scores.length; player++) {
-                text += "&nbsp;&nbsp;Player " + (player + 1) + "&nbsp;&nbsp;";
+            for (playerNum = 0; playerNum < scores.length; playerNum++) {
+                text += "&nbsp;&nbsp;<font class='" + (answer == correctAnswer ? "text-success" : "text-danger") + "'>Player " + (playerNum + 1) + "</font>&nbsp;&nbsp;"
+
             }
+            setHtmlDivText(text, "answer" + answer);
 
             if (document.getElementById("answer" + answer) !== null) { //If an element with this id exists. It wouldn't if it has been guessed and its id has been changed
                 setHtmlDivText(text, "answer" + answer);
@@ -337,7 +349,7 @@ function submitQuestion(div, selectedChoice, player) {
             var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
             for (playerNum = 0; playerNum < scores.length; playerNum++) {
                 if (playersAnswered[playerNum] == true || answerChosen[answer] == true) {
-                    text += "&nbsp;&nbsp;<div class='text-danger'>Player " + (playerNum + 1) + "</div>&nbsp;&nbsp;"
+                    text += "&nbsp;&nbsp;<font class='text-danger'>Player " + (playerNum + 1) + "</font>&nbsp;&nbsp;"
                 } else {
                     text += "&nbsp;&nbsp;<a href='#' onclick='submitQuestion(document.getElementById(\"answer" + answer + "\")," + answer + "," + playerNum + ")'>Player " + (playerNum + 1) + "</a>&nbsp;&nbsp;";
                 }
