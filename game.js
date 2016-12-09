@@ -2,6 +2,8 @@ let MAX_TEAMS = 4;
 
 var scores = [1000];
 
+var playersAnswered = [false];
+
 var finalWager = 0;
 var timeoutId;
 
@@ -104,7 +106,8 @@ function isFinalAnsweCorrect(selectedChoice) {
 }
 
 function setHtmlDivText(text, divId) {
-    document.getElementById(divId).innerHTML = text;
+    if (document.getElementById(divId) !== null)
+        document.getElementById(divId).innerHTML = text;
 }
 
 function hidePage(pageToBeHidden) {
@@ -215,6 +218,10 @@ function showFinalQuestionPage() {
 }
 
 function showQuestionPage(setCategory, setValue) {
+    for (player = 1; player < scores.length; player++) {
+        playersAnswered.push(false);
+    }
+
     document.getElementById('questionPage').style.display='block';
     document.getElementById('chooseQuestionPage').style.display='none';
     setHtmlDivText('','alert');
@@ -235,6 +242,119 @@ function showQuestionPage(setCategory, setValue) {
 
 function submitQuestion(div, selectedChoice, player) {
     var correctAnswer = getCorrectAnswer(currentCategory, currentValue);
+
+    var answerChosen = [];
+    for (playerNum = 0; playerNum < scores.length; playerNum++) { //Initialize that no player has guessed at the question yet and that no answer has been guessed
+        answerChosen.push(false);
+    }
+
+    for (answerChoice = 0; answerChoice < 4; answerChoice++) {
+        if (div.class != "col-md-6 alert alert-info") {
+            answerChosen[answerChoice] = false;
+        }
+    }
+
+    playersAnswered[player] = true;
+    answerChosen[selectedChoice] = true;
+
+    var questionDone = true;
+    //Check if all players have guessed or if enough answers (all but one) have been guessed
+    for (a = 0; a < scores.length; a++) {
+        if (playersAnswered[a] == false) {
+            questionDone = false;
+        }
+    }
+    var answersLeft = 0;
+    for (a = 0; a < 4; a++) {
+        if (answerChosen[a] == false) {
+            answersLeft++;
+        }
+        if (answersLeft >= 2) {
+            questionDone = false;
+            break;
+        }
+    }
+
+    if (selectedChoice == correctAnswer) { //If the selected answer is correct
+
+        questions[currentCategory][currentValue/100].taken = true;
+        scores[player] += currentValue;
+        questions[currentCategory][currentValue/100].correct = true;
+        questionsLeft--;
+        setHtmlDivText("<button type='button' class='btn btn-primary' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\"); playersAnswered = [false];'>Return</button>", "return");
+        updateScores();
+        var correctDivId = "answer" + correctAnswer;
+        document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
+
+        setHtmlDivText('<div class="alert alert-success" role="alert">Correct! Player ' + (player + 1) + ' got ' + currentValue + ' points. Player ' + (player + 1) + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'alert');
+
+        //All the other choices mean that the wrong answer has been guessed
+    } else if (questionDone) { //If everyone has guessed (wrong) or everything but the right answer has been guessed
+
+        questions[currentCategory][currentValue/100].taken = true;
+        scores[player] -= currentValue;
+        questions[currentCategory][currentValue/100].correct = false;
+        questionsLeft--;
+        setHtmlDivText("<button type='button' class='btn btn-primary' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\"); playersAnswered = [false];'>Return</button>", "return");
+        updateScores();
+        var correctDivId = "answer" + correctAnswer;
+        document.getElementById(correctDivId).className = "col-md-6 alert alert-success";
+
+        for (answer = 0; answer < 4; answer++) {
+            //Set the text as as a <p> element rather than a clickable <a> element so that no more answers can be clicked
+            var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
+            for (player = 0; player < scores.length; player++) {
+                text += "&nbsp;&nbsp;Player " + (player + 1) + "&nbsp;&nbsp;";
+            }
+
+            if (document.getElementById("answer" + answer) !== null) { //If an element with this id exists. It wouldn't if it has been guessed and its id has been changed
+                setHtmlDivText(text, "answer" + answer);
+
+                if (answer == correctAnswer) {
+                    document.getElementById("answer" + answer).className = "col-md-6 alert alert-success";
+                } else {
+                    document.getElementById("answer" + answer).className = "col-md-6 alert alert-danger";
+                }
+            }
+        }
+    } else { //If this is not the end of the question, but an incorrect answer is guessed
+        div.className = "col-md-6 alert alert-danger";
+        playersAnswered[player] = true;
+        scores[player] -= currentValue;
+/*
+        var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
+        for (player = 0; player < scores.length; player++) {
+            text += "&nbsp;&nbsp;Player " + (player + 1) + "&nbsp;&nbsp;";
+        }
+        setHtmlDivText(text, "answer" + selectedChoice);
+*/
+        //Set the text as text rather than a clickable <a> element so that no more answers can be clicked for all answers for that player
+        for (answer = 0; answer < 4; answer++) {
+            var text = "<b>" + getAnswerChoice(currentCategory, currentValue, answer) + "</b><br>";
+            for (playerNum = 0; playerNum < scores.length; playerNum++) {
+                if (playersAnswered[playerNum] == true) {
+                    text += "&nbsp;&nbsp;Player " + (playerNum + 1) + "&nbsp;&nbsp;"
+                } else {
+                    text += "&nbsp;&nbsp;<a href='#' onclick='submitQuestion(document.getElementById(\"answer" + answer + "\")," + answer + "," + playerNum + ")'>Player " + (playerNum + 1) + "</a>&nbsp;&nbsp;";
+                }
+            }
+            console.log(text);
+            setHtmlDivText(text, "answer" + answer);
+        }
+    }
+
+
+
+
+
+
+
+    /*
+        for (answer = 0; answer < 4; answer++) {
+            setHtmlDivText('<div class="alert alert-danger" role="alert">Incorrect! Player ' + (player + 1) + ' lost ' + currentValue + ' points. Player ' + (player + 1) + '\'s new score is <b>' + scores[player] + '</b>.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>', 'answer' + answer);
+        }
+    }
+
     questions[currentCategory][currentValue/100].taken = true;
     if (selectedChoice != correctAnswer) {
         div.className = "col-md-6 alert alert-danger";
@@ -256,10 +376,10 @@ function submitQuestion(div, selectedChoice, player) {
     setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 2) + "</p>", "answer2");
     setHtmlDivText("<p>" + getAnswerChoice(currentCategory, currentValue, 3) + "</p>", "answer3");
 
-    setHtmlDivText("<button type='button' class='btn btn-primary' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\")'>Return</button>", "return");
+    setHtmlDivText("<button type='button' class='btn btn-primary' onclick='hideAndShow(\"questionPage\", \"chooseQuestionPage\"); playersAnswered = [false];'>Return</button>", "return");
     updateScores();
 
-    questionsLeft--;
+    */
 }
 
 function submitFinalQuestion(div, selectedChoice) {
